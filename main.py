@@ -40,5 +40,3 @@ def main():
 
 
 main()
-
-# print(l_system("A", [("A", "AB"), ("B", "A")], 7))
