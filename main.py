@@ -1,3 +1,6 @@
+import sys
+
+
 def iteration(variable, rules):
     result = ""
 
@@ -23,4 +26,19 @@ def l_system(axiom, rules, iterations=10):
     return current_var
 
 
-print(l_system("A", [("A", "AB"), ("B", "A")], 7))
+def main():
+    examples = [("A", [("A", "AB"), ("B", "A")]),
+                ("0", [("1", "11"), ("0", "1[0]0")])]
+
+    example = 1
+    if len(sys.argv) > 1:
+        example = int(sys.argv[1])
+
+    lsystem = examples[example - 1]
+
+    print(l_system(lsystem[0], lsystem[1]))
+
+
+main()
+
+# print(l_system("A", [("A", "AB"), ("B", "A")], 7))
