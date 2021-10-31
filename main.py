@@ -103,6 +103,7 @@ def draw_example_3(variable):
             turtle.down()
 
     turtle.getscreen().update()
+    
     input()
 
 
