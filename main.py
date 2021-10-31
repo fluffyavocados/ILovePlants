@@ -103,15 +103,41 @@ def draw_example_3(variable):
             turtle.down()
 
     turtle.getscreen().update()
-    
+
     input()
 
+def draw_example_4(variable):
+    turtle = Turtle()
+    turtle.speed("fastest")
+    turtle.left(90)
+
+    stack = []
+
+    for char in variable:
+        if char == "f":
+            turtle.forward(10)
+        elif char == "L":
+            turtle.forward(10)
+        elif char == "[":
+            stack.append((turtle.pos(), turtle.heading()))
+        elif char == "]":
+            pos, angle = stack.pop()
+            turtle.up()
+            turtle.setposition(pos[0], pos[1])
+            turtle.setheading(angle)
+            turtle.down()
+        elif char == "r":
+            turtle.right(60)
+        elif char == "l":
+            turtle.left(60)
+    input()
 
 def main():
     examples = [("A", [("A", "AB"), ("B", "A")]),
                 ("0", [("1", "11"), ("0", "1[0]0")], draw_example_1),
                 ("F", [("F", "F+F-F-F+F")], draw_example_2),
-                ("X", [("X", "F+[[X]-X]-F[-FX]+X"), ("F", "FF")], draw_example_3)]
+                ("X", [("X", "F+[[X]-X]-F[-FX]+X"), ("F", "FF")], draw_example_3),
+                ("L", [("L", "f[rL]lL")], draw_example_4)]
 
     example = 1
     if len(sys.argv) > 1:
