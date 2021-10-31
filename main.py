@@ -1,4 +1,5 @@
 import sys
+from turtle import Turtle
 
 
 def iteration(variable, rules):
@@ -18,7 +19,7 @@ def iteration(variable, rules):
     return result
 
 
-def l_system(axiom, rules, iterations=10):
+def l_system(axiom, rules, iterations=8):
     current_var = axiom
     for _ in range(iterations):
         current_var = iteration(current_var, rules)
@@ -26,9 +27,37 @@ def l_system(axiom, rules, iterations=10):
     return current_var
 
 
+def draw_example_1(variable):
+    turtle = Turtle()
+    turtle.speed("fastest")
+    turtle.left(90)
+    turtle.up()
+    turtle.setposition(0, -300)
+    turtle.down()
+
+    stack = []
+
+    for char in variable:
+        if char == "0":
+            turtle.forward(2)
+        elif char == "1":
+            turtle.forward(2)
+        elif char == "[":
+            stack.append((turtle.pos(), turtle.heading()))
+            turtle.left(45)
+        elif char == "]":
+            pos, angle = stack.pop()
+            turtle.up()
+            turtle.setposition(pos[0], pos[1])
+            turtle.setheading(angle)
+            turtle.down()
+            turtle.right(45)
+    input()
+
+
 def main():
     examples = [("A", [("A", "AB"), ("B", "A")]),
-                ("0", [("1", "11"), ("0", "1[0]0")])]
+                ("0", [("1", "11"), ("0", "1[0]0")], draw_example_1)]
 
     example = 1
     if len(sys.argv) > 1:
@@ -36,7 +65,11 @@ def main():
 
     lsystem = examples[example - 1]
 
-    print(l_system(lsystem[0], lsystem[1]))
+    result = l_system(lsystem[0], lsystem[1])
+    print(result)
+
+    if len(lsystem) > 2:
+        lsystem[2](result)
 
 
 main()
